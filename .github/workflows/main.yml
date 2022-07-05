@@ -1,0 +1,26 @@
+name: deploy
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 下载源码
+      - name: Checkout
+        uses: actions/checkout@master
+
+      # 部署到服务器
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /usr/share/nginx/xuetangx
+            git pull
+            yarn
+            yarn run build
