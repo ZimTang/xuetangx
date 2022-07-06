@@ -13,6 +13,7 @@ import NavHeader from './components/nav-header.vue';
 import livePart from './components/live-part.vue';
 import CoursePart from './components/course-part.vue';
 import FriendPart from './components/friend-part.vue';
+import FooterPart from './components/footer-part.vue';
 import { getCourseByCate, getCourseCate } from './api/course';
 import getSwiperData from './api/swiper';
 import getLiveData from './api/live';
@@ -87,6 +88,7 @@ const handleChangeCate = (id) => {
       @change-cate="handleChangeCate"
     />
     <friend-part :friend-list="friendList" />
+    <footer-part />
   </div>
 </template>
 
