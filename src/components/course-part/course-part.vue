@@ -1,15 +1,18 @@
-<script setup>
-import listItem from './list-item.vue';
+<script setup lang="ts">
+import listItem, { ItemData } from '../common/list-item/list-item.vue';
 
-const props = defineProps({
-  cateList: Array,
-  cateId: Number,
-  courseList: Array,
-});
+export type CateItem = ItemData;
+
+// todo
+const props = defineProps<{
+  cateList: CateItem[];
+  cateId: Number;
+  courseList: CateItem[];
+}>();
 
 const emits = defineEmits(['changeCate']);
 
-const changeCate = (id) => {
+const changeCate = (id: number) => {
   emits('changeCate', id);
 };
 </script>

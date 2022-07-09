@@ -1,8 +1,5 @@
-# vue3 + vite 项目模板
+# 仿学堂在线首页
 
-已配置：
-- eslint + prettier
-- husky + lint-staged
-- commitizen + commitlint
+使用技术栈：vue3.2 + typescript + vite
 
-本仓库目的：减少创建项目时间
+工具：eslint + prettier + husky + commitlint + commitizen + lint-staged

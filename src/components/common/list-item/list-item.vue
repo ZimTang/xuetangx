@@ -1,26 +1,36 @@
-<script setup>
-defineProps({
-  itemData: Object,
-});
+<script setup lang="ts">
+export type ItemData = {
+  id: number;
+  title?: string;
+  cover?: string;
+  desc?: string;
+  creator?: string;
+  count?: number;
+  text?: string;
+};
+
+const props = defineProps<{
+  itemData: ItemData;
+}>();
 </script>
 
 <template>
   <div class="list-item">
-    <div class="cover" v-if="itemData.cover">
+    <div class="cover" v-if="props.itemData?.cover">
       <img :src="itemData.cover" alt="" />
     </div>
-    <div class="title" v-if="itemData.title">
+    <div class="title" v-if="props.itemData?.title">
       <p>{{ itemData.title }}</p>
     </div>
-    <div class="desc" v-if="itemData.desc">
+    <div class="desc" v-if="props.itemData?.desc">
       <p>{{ itemData.desc }}</p>
     </div>
-    <div class="bottom" v-if="itemData.creator">
-      <div class="creator">{{ itemData.creator }}</div>
-      <div class="count" v-if="itemData.count">
+    <div class="bottom" v-if="props.itemData?.creator">
+      <div class="creator">{{ props.itemData.creator }}</div>
+      <div class="count" v-if="props.itemData.count">
         {{
-          itemData.count > 10000
-            ? itemData.count.toString()[0] + 'w+'
+          props.itemData.count > 10000
+            ? props.itemData.count.toString()[0] + 'w+'
             : itemData.count
         }}
       </div>

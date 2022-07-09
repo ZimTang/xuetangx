@@ -1,9 +1,14 @@
-<script setup>
-import ListItem from './list-item.vue';
+<script setup lang="ts">
+import ListItem from '../common/list-item/list-item.vue';
 
-const props = defineProps({
-  friendList: Array,
-});
+export type FriendItem = {
+  id: number;
+  cover: string;
+};
+
+const props = defineProps<{
+  friendList: FriendItem[];
+}>();
 </script>
 
 <template>

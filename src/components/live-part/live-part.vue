@@ -1,9 +1,11 @@
-<script setup>
-import ListItem from './list-item.vue';
+<script setup lang="ts">
+import ListItem from '../common/list-item/list-item.vue';
 
-const props = defineProps({
-  liveList: Array,
-});
+export type LiveItem = { id: number; cover: string; title: string };
+
+const props = defineProps<{
+  liveList: LiveItem[];
+}>();
 </script>
 
 <template>

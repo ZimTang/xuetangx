@@ -3,7 +3,7 @@
 <template>
   <div class="nav-header">
     <div class="logo">
-      <img src="../assets/images/logo.png" alt="" />
+      <img src="../../../assets/images/logo.png" alt="" />
     </div>
     <div class="link-list">
       <div class="item active">

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import {
   Navigation,
@@ -9,55 +9,44 @@ import {
   Virtual,
 } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import NavHeader from './components/nav-header.vue';
-import livePart from './components/live-part.vue';
-import CoursePart from './components/course-part.vue';
-import FriendPart from './components/friend-part.vue';
-import FooterPart from './components/footer-part.vue';
-import { getCourseByCate, getCourseCate } from './api/course';
-import getSwiperData from './api/swiper';
-import getLiveData from './api/live';
-import getFriendData from './api/frend';
 import 'swiper/css';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import 'swiper/css/autoplay';
 
+import NavHeader from './components/common/nav-header/nav-header.vue';
+import livePart, { LiveItem } from './components/live-part/live-part.vue';
+import CoursePart, { CateItem } from './components/course-part/course-part.vue';
+import FriendPart, {
+  FriendItem,
+} from './components/friend-part/friend-part.vue';
+import FooterPart from './components/footer-part/footer-part.vue';
+import getSwiperData from './api/swiper';
+import getLiveData from './api/live';
+import { getCourseByCate, getCourseCate } from './api/course';
+import getFriendData from './api/friend';
+
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay, Virtual];
-const onSwiper = () => {};
-const onSlideChange = () => {};
-
-const swiperList = ref(null);
-const liveList = ref(null);
-const cateList = ref(null);
+const swiperList = ref([]);
+const liveList = ref<LiveItem[]>([]);
+const cateList = ref<CateItem[]>([]);
 const cateId = ref(1);
-const courseList = ref(null);
-const friendList = ref(null);
+const courseList = ref([]);
+const friendList = ref<FriendItem[]>([]);
 
-onMounted(() => {
-  getSwiperData().then((res) => {
-    swiperList.value = res.data;
-  });
-  getLiveData().then((res) => {
-    liveList.value = res.data;
-  });
-  getCourseCate().then((res) => {
-    cateList.value = res.data;
-  });
-  getCourseByCate(cateId.value).then((res) => {
-    courseList.value = res.data;
-  });
-  getFriendData().then((res) => {
-    friendList.value = res.data;
-  });
+onMounted(async () => {
+  swiperList.value = (await getSwiperData()).data;
+  liveList.value = (await getLiveData()).data;
+  cateList.value = (await getCourseCate()).data;
+  courseList.value = (await getCourseByCate(cateId.value)).data;
+  friendList.value = (await getFriendData()).data;
 });
 
-const handleChangeCate = (id) => {
+// 改变分类
+const handleChangeCate = async (id: number) => {
   cateId.value = id;
-  getCourseByCate(cateId.value).then((res) => {
-    courseList.value = res.data;
-  });
+  courseList.value = (await getCourseByCate(cateId.value)).data;
 };
 </script>
 
@@ -73,8 +62,6 @@ const handleChangeCate = (id) => {
       virtual
       :pagination="{ clickable: true }"
       :scrollbar="{ draggable: false }"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange"
     >
       <swiper-slide v-for="swiper in swiperList" :key="swiper">
         <img :src="swiper" alt="" class="swiper-img" />

@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 const defaultConfig = {
   timeout: 5000,
-  baseURL: 'https://dfa3bfea-1464-4aad-8c30-e013d15f8de1.mock.pstmn.io',
+  baseURL: 'http://127.0.0.1:4523/m1/1223726-0-default',
 };
 
 class Http {
@@ -18,7 +18,7 @@ class Http {
    */
   httpInterceptorsRequest() {
     this.axiosInstance.interceptors.request.use(
-      (config) => config,
+      (config: AxiosRequestConfig) => config,
       (err) => Promise.reject(err)
     );
   }
@@ -36,7 +36,7 @@ class Http {
   /**
    * GET请求
    */
-  get(url, params) {
+  get(url: string, params?: object) {
     return this.axiosInstance
       .get(url, params)
       .then((res) => res.data)
@@ -46,7 +46,7 @@ class Http {
   /**
    * POST请求
    */
-  post(url, params) {
+  post(url: string, params: object) {
     return this.axiosInstance
       .post(url, params)
       .then((res) => res.data)
