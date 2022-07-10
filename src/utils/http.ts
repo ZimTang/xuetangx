@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const defaultConfig = {
   timeout: 5000,
-  baseURL: 'http://127.0.0.1:4523/m1/1223726-0-default',
+  baseURL: import.meta.env.VITE_SERVER,
 };
 
 class Http {
